@@ -6,60 +6,135 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Graphics</title>
     <script src="gauge.min.js"></script>
-    
+    <style>
+        .gauge-div {
+          position: relative;
+          width: 600px;
+          height: 300px;
+          margin-left: 40px;
+        }
+
+
+        #left-bottom {
+          position: absolute;
+          left: 50px;
+          bottom: 33px;
+        }
+
+        #right-bottom {
+          position: absolute;
+          right: 50px;
+          bottom: 33px;
+        }
+
+        #preview-textfield {
+          position: absolute;
+          left: 270px;
+          top: 125px;
+          font-size: 40px;
+          font-weight: 800;
+        }
+
+        #status {
+          position: absolute;
+          left: 220px;
+          top: 175px;
+          font-size: 30px;
+          text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <canvas id="foo">
+    <div class="gauge-div" >
+        <canvas id="foo" width="600" height="300">
 
         </canvas>
-        <div id="preview-textfield" style="font-size: 15px;">0%</div>
+        <span id="left-bottom">300</span>
+        <span id="right-bottom">850</span>
+        <div id="preview-textfield"></div>
+        <div id="status">
+          VERY GOOD<br/>
+          (716-747)
+        </div>
+        
     </div>
 
 <div class="gauge">
-  <canvas width="200" height="200" id="canvas-preview"></canvas>
+  <canvas  id="canvas-preview"></canvas>
   
 </div>
 
     <script>
 
-        var opts = {
-  angle: 0.35, // The span of the gauge arc
+
+
+//         var opts = {
+//   angle: 0.2, // The span of the gauge arc
+//   lineWidth: 0.1, // The line thickness
+//   radiusScale: 1, // Relative radius
+//   pointer: {
+//     length: 0.6, // // Relative to gauge radius
+//     strokeWidth: 0.035, // The thickness
+//     color: '#000000' // Fill color
+//   },
+//   limitMax: false,     // If false, max value increases automatically if value > maxValue
+//   limitMin: false,     // If true, the min value of the gauge will be fixed
+//   colorStart: '#6F6EA0',   // Colors
+//   colorStop: '#C0C0DB',    // just experiment with them
+//   strokeColor: '#EEEEEE',  // to see which ones work best for you
+//   generateGradient: true,
+//   highDpiSupport: true,     // High resolution support
+//   percentColors: [[0.0, "#FF4B57" ], [0.40, "#EBEB3A"], [0.48, "#5ACF40"], [0.481, '#FFF'], [0.52, "#EBEB3A"], [0.60, "#FF4B57"]],
+//   // renderTicks is Optional
+//   renderTicks: {
+//     divisions: 4,
+//     divWidth: 1.1,
+//     divLength: 0.7,
+//     divColor: '#333333',
+//     subDivisions: 3,
+//     subLength: 0.73,
+//     subWidth: 0.6,
+//     subColor: '#666666'
+//   }
+  
+// };
+// var target = document.getElementById('foo'); // your canvas element
+// var gauge = new Donut(target).setOptions(opts); // create sexy gauge!
+// gauge.maxValue = 850; // set max gauge value
+// gauge.setMinValue(300);  // Prefer setter over gauge.minValue = 0
+// gauge.animationSpeed = 10; // set animation speed (32 is default value)
+// gauge.set(300); // set actual value
+
+// gauge.setTextField(document.getElementById("preview-textfield"));
+
+
+var opts = {
+  angle: -0.1, // The span of the gauge arc
   lineWidth: 0.1, // The line thickness
-  radiusScale: 1, // Relative radius
   pointer: {
-    length: 0.6, // // Relative to gauge radius
-    strokeWidth: 0.035, // The thickness
+    length: 0.9, // // Relative to gauge radius
+    strokeWidth: 0, // The thickness
     color: '#000000' // Fill color
   },
   limitMax: false,     // If false, max value increases automatically if value > maxValue
-  limitMin: false,     // If true, the min value of the gauge will be fixed
-  colorStart: '#358EA0',   // Colors
-  colorStop: '#63BFDB',    // just experiment with them
-  strokeColor: '#EEEEEE',  // to see which ones work best for you
-  generateGradient: true,
-  highDpiSupport: true,     // High resolution support
-  // renderTicks is Optional
-  renderTicks: {
-    divisions: 4,
-    divWidth: 1.1,
-    divLength: 0.7,
-    divColor: '#333333',
-    subDivisions: 3,
-    subLength: 0.73,
-    subWidth: 0.6,
-    subColor: '#666666'
-  }
+  percentColors: [[0.0, "#FF4B57" ], [0.40, "#EBEB3A"], [0.48, "#5ACF40"], [0.481, '#FFF'], [0.52, "#EBEB3A"], [0.60, "#FF4B57"]],
+    strokeColor: '#E0E0E0',
+  generateGradient: false
   
 };
 var target = document.getElementById('foo'); // your canvas element
-var gauge = new Donut(target).setOptions(opts); // create sexy gauge!
+var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
 gauge.maxValue = 850; // set max gauge value
 gauge.setMinValue(300);  // Prefer setter over gauge.minValue = 0
-gauge.animationSpeed = 34; // set animation speed (32 is default value)
-gauge.set(700); // set actual value
+gauge.animationSpeed = 100; // set animation speed (32 is default value)
+gauge.set(600); // set actual value
 
- gauge.setTextField(document.getElementById("preview-textfield"));
+gauge.setTextField(document.getElementById("preview-textfield"));
+
+// let v = 0;
+// let s = 300;
+//setInterval(function(){v+=10; gauge.set(s+v)}, 200)
+
 
 // var opts = {
 //   lines: 12, // The number of lines to draw
