@@ -7,7 +7,7 @@
     <title>Graphics</title>
     <script src="gauge.min.js"></script>
     <style>
-        .gauge-div {
+        .big-gauge-div {
           position: relative;
           width: 600px;
           height: 300px;
@@ -15,19 +15,19 @@
         }
 
 
-        #left-bottom {
+        #big-left-bottom {
           position: absolute;
           left: 50px;
           bottom: 33px;
         }
 
-        #right-bottom {
+        #big-right-bottom {
           position: absolute;
           right: 50px;
           bottom: 33px;
         }
 
-        #preview-textfield {
+        #big-preview-textfield {
           position: absolute;
           left: 270px;
           top: 125px;
@@ -35,30 +35,100 @@
           font-weight: 800;
         }
 
-        #status {
+        #big-status {
           position: absolute;
           left: 220px;
           top: 175px;
           font-size: 30px;
           text-align: center;
         }
+
+        .small-gauge-div {
+          position: relative;
+          width: 300px;
+          height: 150px;
+          margin-left: 40px;
+        }
+
+
+        #small-left-bottom {
+          position: absolute;
+          left: 20px;
+          bottom: 13px;
+        }
+
+        #small-right-bottom {
+          position: absolute;
+          right: 20px;
+          bottom: 13px;
+        }
+
+        #small-preview-textfield {
+          position: absolute;
+          left: 130px;
+          top: 50px;
+          font-size: 30px;
+          font-weight: 800;
+        }
+
+        #small-status {
+          position: absolute;
+          left: 92px;
+          top: 85px;
+          font-size: 20px;
+          text-align: center;
+        }
+
+
+          .small-gauge-div {
+            display: none;
+          }
+
+        @media only screen and (max-width: 600px) {
+          .small-gauge-div {
+            display: block;
+          }
+
+          .big-gauge-div {
+            display: none;
+          }
+        }
     </style>
 </head>
 <body>
-    <div class="gauge-div" >
-        <canvas id="foo" width="600" height="300">
+    <div class="big-gauge-div">
+        <canvas id="big-gauge" width="600" height="300">
 
         </canvas>
-        <span id="left-bottom">300</span>
-        <span id="right-bottom">850</span>
-        <div id="preview-textfield"></div>
-        <div id="status">
+        <span id="big-left-bottom">300</span>
+        <span id="big-right-bottom">850</span>
+        <div id="big-preview-textfield">800</div>
+        <div id="big-status">
+          
           VERY GOOD<br/>
           (716-747)
         </div>
         
     </div>
 
+    <div class="small-gauge-div" >
+        <canvas id="small-gauge" width="300" height="150">
+
+        </canvas>
+        <span id="small-left-bottom">300</span>
+        <span id="small-right-bottom">850</span>
+        <div id="small-preview-textfield">800</div>
+        <div id="small-status">
+          VERY GOOD<br/>
+          (716-747)
+        </div>
+        
+    </div>
+
+    <!-- <div style="background: #5ACF40;">a</div>
+    <div style="background: #EBEB3A;">a</div>
+    <div style="background: #5ACF40;">a</div>
+    <div style="background: #FF4B57;">a</div> -->
 <div class="gauge">
   <canvas  id="canvas-preview"></canvas>
   
@@ -109,6 +179,30 @@
 
 
 var opts = {
+  angle: -0.2, // The span of the gauge arc
+  lineWidth: 0.1, // The line thickness
+  pointer: {
+    length: 0.9, // // Relative to gauge radius
+    strokeWidth: 0, // The thickness
+    color: '#000000' // Fill color
+  },
+  limitMax: false,     // If false, max value increases automatically if value > maxValue
+  percentColors: [[0.0, "#5ACF40" ], [0.40, "#EBEB3A"], [0.6, "#5ACF40"], [0.8, "#FF4B57"]],
+    strokeColor: '#E0E0E0',
+  generateGradient: false
+  
+};
+var target = document.getElementById('big-gauge'); // your canvas element
+var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+gauge.maxValue = 850; // set max gauge value
+gauge.setMinValue(300);  // Prefer setter over gauge.minValue = 0
+gauge.animationSpeed = 1; // set animation speed (32 is default value)
+gauge.set(800); // set actual value
+
+//gauge.setTextField(document.getElementById("preview-textfield"));
+
+
+var opts = {
   angle: -0.1, // The span of the gauge arc
   lineWidth: 0.1, // The line thickness
   pointer: {
@@ -117,19 +211,18 @@ var opts = {
     color: '#000000' // Fill color
   },
   limitMax: false,     // If false, max value increases automatically if value > maxValue
-  percentColors: [[0.0, "#FF4B57" ], [0.40, "#EBEB3A"], [0.48, "#5ACF40"], [0.481, '#FFF'], [0.52, "#EBEB3A"], [0.60, "#FF4B57"]],
+  percentColors: [[0.0, "#5ACF40" ], [0.40, "#EBEB3A"], [0.6, "#5ACF40"], [0.8, "#FF4B57"]],
     strokeColor: '#E0E0E0',
   generateGradient: false
   
 };
-var target = document.getElementById('foo'); // your canvas element
-var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-gauge.maxValue = 850; // set max gauge value
-gauge.setMinValue(300);  // Prefer setter over gauge.minValue = 0
-gauge.animationSpeed = 100; // set animation speed (32 is default value)
-gauge.set(600); // set actual value
+var small_target = document.getElementById('small-gauge'); // your canvas element
+var small_gauge = new Gauge(small_target).setOptions(opts); // create sexy gauge!
+small_gauge.maxValue = 850; // set max gauge value
+small_gauge.setMinValue(300);  // Prefer setter over gauge.minValue = 0
+small_gauge.animationSpeed = 1; // set animation speed (32 is default value)
+small_gauge.set(800); // set actual value
 
-gauge.setTextField(document.getElementById("preview-textfield"));
 
 // let v = 0;
 // let s = 300;
